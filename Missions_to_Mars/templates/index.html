@@ -6,7 +6,7 @@
         <meta char="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Scraping Mars</title>
+        <title>Mission to Mars Challenge</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
@@ -16,19 +16,19 @@
     <body>
         
         <div class="container">
-                <div class = "jumbotron text-center">
-                    <h1> Mission to Mars</h1>
-                    <p><a class="btn btn-primary bn-lg"href="/scrpe" role="button"ªScrape New Data</a></p>
-                </div>
+            <div class = "jumbotron text-center">
+                <h1> Mission to Mars</h1>
+                <p><a class="btn btn-primary bn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+            </div>
 
             <br>
 
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="heading"><strong>Mars news</strong></h1>
-                    <h3 class="heading">{{ mars.news_title }}</h3>
-                    <p>{{ mars.news_snip }} </p> 
-                </div>
+            <div class="col-md-12">
+                <h1 class="heading"><strong>Lastest Mars news</strong></h1>
+                <h3 class="heading">{{ mars.news_title }}</h3>
+                <p>{{ mars.news_snip }} </p> 
+            </div>
             </div>
 
             <br>
@@ -61,7 +61,7 @@
             <h1 class="heading text-center"><strong> Hermispheres</strong></h1>
             <div class="col-md-6">
                 <div class="col-md-12">
-                    {% for pic in mars.hemisphere_image[0:2]%}
+                    {% for pic in mars.hemisphere_image %}
                         <img class="img img-thumbnail" src="{{pic['url']}}" alt="Hermisphere" style="width:50%;">
                         <div class="caption" style="font-weight: bold;">
                             {{pic['Title']}}
@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
-                    {% for pic in mars.hemisphere_image[2:4]%}
+                    {% for pic in mars.hemisphere_image%}
                         <img src="{{pic['url']}}" alt="Hermisphere" style="width:50%;">
                         <div class="caption" style="font-weight: bold;">
                             {{pic['Title']}}

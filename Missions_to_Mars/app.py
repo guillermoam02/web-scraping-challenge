@@ -1,4 +1,4 @@
-from flask import Flsk, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify
 from flask_pymongo import PyMongo
 import scrape_mars
 
@@ -17,7 +17,7 @@ def scrape():
     mars_data=scrape_mars.scrape()
     mars.update({}, mars_data, upsert=True)
     
-    return redirect("http://localhost:5000/", code=302)
+    return redirect("/", code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)

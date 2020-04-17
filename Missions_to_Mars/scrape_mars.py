@@ -4,10 +4,11 @@ from splinter import Browser
 import pymongo
 import pandas as pd
 import requests
+import re
 from flask import Flask, render_template
 import time
 import numpy as np
-import jason
+import json
 from selenium import webdriver
 
 def init_browser():
@@ -45,15 +46,21 @@ def scrape ():
     
     # Weather
     url_weather = ('https://twitter.com/marswxreport?lang=en')
+    tweet_attrs = {"class": "tweet", "data-name": "Mars Weather"}
     browser.visit(url_weather)
+    time.sleep(5)
     response = browser.html
     soup3 = BeautifulSoup(response, 'html.parser')
-    weather = soup3.find_all("div",class_="js-tweet-text-container")
+    weatherbs = soup3.find("div", attrs=tweet_attrs)
     weather_mars = []
-    for content in weather:
-        tweet = content.find("p", class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
-        weather_mars.append(tweet)
-    mars_collection["mars_weather"] = weather_mars[8]
+    try:
+        tweet = weatherbs.find("p", "tweet-text").get_text()
+    except AttributeError:
+        pattern = re.compile(r'sol')
+        tweet = soup3.find('span', text=pattern).text
+        print(tweet)
+    weather_mars.append(tweet)
+    mars_collection["mars_weather"] = weather_mars
 
     # Facts
     url_facts = "https://space-facts.com/mars/"
@@ -85,7 +92,7 @@ def scrape ():
     # Schiaparelli
 
     url_schiaparelli = "https://astrogeology.usgs.gov/search/map/Mars/Viking/schiaparelli_enhanced"
-    browser.visit(url_cerberus)
+    browser.visit(url_schiaparelli)
     response_schiaparelli = browser.html
     soup5 = BeautifulSoup(response_schiaparelli, 'html.parser')
     schiaparelli_img = soup5.find_all('div', class_="wide-image-wrapper")
